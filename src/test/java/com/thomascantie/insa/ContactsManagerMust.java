@@ -1,4 +1,4 @@
-package com.fredericboisguerin.insa;
+package com.thomascantie.insa;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;

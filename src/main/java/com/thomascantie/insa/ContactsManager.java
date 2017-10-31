@@ -1,4 +1,4 @@
-package com.fredericboisguerin.insa;
+package com.thomascantie.insa;
 
 public class ContactsManager {
 
