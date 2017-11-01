@@ -1,15 +1,19 @@
 package com.thomascantie.insa;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ContactsManager {
 
-    private Contact theContact;
+    private List<Contact> contacts = new ArrayList<Contact>();
 
     public void addContact(String name, String email, String phoneNumber) {
-		this.theContact = new Contact(name, email, phoneNumber);
+		this.contacts.add(new Contact(name, email, phoneNumber));
     }
 
     public void printAllContacts() {
-		System.out.println(this.theContact);
+    	for (Contact aContact : this.contacts)
+			System.out.println(aContact);
     }
 
     public void searchContactByName(String name) {
