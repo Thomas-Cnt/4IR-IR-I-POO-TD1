@@ -9,14 +9,7 @@ public class ContactsManager {
     }
 
     public void printAllContacts() {
-		if (this.theContact.email == null && this.theContact.phoneNumber == null)
-			System.out.println(this.theContact.name);
-		else if (this.theContact.email == null)
-			System.out.println(this.theContact.name + ", " + this.theContact.phoneNumber);
-		else if (this.theContact.phoneNumber == null)
-			System.out.println(this.theContact.name + ", " + this.theContact.email);
-		else
-			System.out.println(this.theContact.name + ", " + this.theContact.email + ", " + this.theContact.phoneNumber);
+		System.out.println(this.theContact);
     }
 
     public void searchContactByName(String name) {
@@ -33,6 +26,18 @@ public class ContactsManager {
 			this.name = name;
 			this.email = email;
 			this.phoneNumber = phoneNumber;
+		}
+
+		@Override
+		public String toString() {
+			if (this.email == null && this.phoneNumber == null)
+				return this.name;
+			else if (this.email == null)
+				return this.name + ", " + this.phoneNumber;
+			else if (this.phoneNumber == null)
+				 return this.name + ", " + this.email;
+			else
+				return this.name + ", " + this.email + ", " + this.phoneNumber;
 		}
 	}
 }
