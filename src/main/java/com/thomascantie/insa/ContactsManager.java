@@ -2,6 +2,7 @@ package com.thomascantie.insa;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringJoiner;
 
 public class ContactsManager {
 
@@ -40,11 +41,11 @@ public class ContactsManager {
 			if (this.email == null && this.phoneNumber == null)
 				return this.name;
 			else if (this.email == null)
-				return this.name + ", " + this.phoneNumber;
+				return new StringJoiner(", ").add(this.name).add(this.phoneNumber).toString();
 			else if (this.phoneNumber == null)
-				 return this.name + ", " + this.email;
+				 return new StringJoiner(", ").add(this.name).add(this.email).toString();
 			else
-				return this.name + ", " + this.email + ", " + this.phoneNumber;
+				return new StringJoiner(", ").add(this.name).add(this.email).add(this.phoneNumber).toString();
 		}
 	}
 }
