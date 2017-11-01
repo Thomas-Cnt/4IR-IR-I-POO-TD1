@@ -17,7 +17,10 @@ public class ContactsManager {
     }
 
     public void searchContactByName(String name) {
-
+		int i;
+		for (i = 0; i < this.contacts.size() && !this.contacts.get(i).name.toLowerCase().contains(name.toLowerCase()); i++) {}
+		if (i < this.contacts.size())
+			System.out.println(this.contacts.get(i));
     }
 
 	private class Contact {
