@@ -9,7 +9,10 @@ public class ContactsManager {
     }
 
     public void printAllContacts() {
-		System.out.println(this.theContact.name);
+		if (this.theContact.email == null && this.theContact.phoneNumber == null)
+			System.out.println(this.theContact.name);
+		else
+			System.out.println(this.theContact.name + ", " + this.theContact.phoneNumber);
     }
 
     public void searchContactByName(String name) {
