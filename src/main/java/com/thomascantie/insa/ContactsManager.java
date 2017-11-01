@@ -10,6 +10,8 @@ public class ContactsManager {
 	public void addContact(String name, String email, String phoneNumber) throws InvalidContactNameException {
 		if (name == null)
 			throw new InvalidContactNameException();
+		if (name.isEmpty())
+			throw new InvalidContactNameException();
 		this.contacts.add(new Contact(name, email, phoneNumber));
 	}
 
