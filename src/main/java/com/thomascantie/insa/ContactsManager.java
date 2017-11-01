@@ -13,8 +13,10 @@ public class ContactsManager {
 			System.out.println(this.theContact.name);
 		else if (this.theContact.email == null)
 			System.out.println(this.theContact.name + ", " + this.theContact.phoneNumber);
-		else
+		else if (this.theContact.phoneNumber == null)
 			System.out.println(this.theContact.name + ", " + this.theContact.email);
+		else
+			System.out.println(this.theContact.name + ", " + this.theContact.email + ", " + this.theContact.phoneNumber);
     }
 
     public void searchContactByName(String name) {
