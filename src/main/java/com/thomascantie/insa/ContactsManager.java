@@ -18,10 +18,18 @@ public class ContactsManager {
 
 	public void searchContactByName(String name) {
 		int i;
-		for (i = 0; i < this.contacts.size() && !this.contacts.get(i).name.toLowerCase().contains(name.toLowerCase()); i++) {
+		for (i = 0; isIndexInTheList(i) && isNotIndexForAContactWithName(name, i); i++) {
 		}
-		if (i < this.contacts.size())
+		if (isIndexInTheList(i))
 			System.out.println(this.contacts.get(i));
+	}
+
+	private boolean isNotIndexForAContactWithName(String name, int i) {
+		return !this.contacts.get(i).name.toLowerCase().contains(name.toLowerCase());
+	}
+
+	private boolean isIndexInTheList(int i) {
+		return i < this.contacts.size();
 	}
 
 	private class Contact {
