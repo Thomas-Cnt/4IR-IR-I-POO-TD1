@@ -9,7 +9,7 @@ public class ContactsManagerShould {
     private static final String SOME_VALID_NAME = "Toto titi";
 
     @Test(expected = InvalidContactNameException.class)
-    public void fail_if_no_name() throws InvalidContactNameException {
+    public void fail_if_no_name() throws InvalidContactNameException, InvalidEmailException {
         ContactsManager contactsManager = new ContactsManager();
         String noName = null;
 
@@ -17,7 +17,7 @@ public class ContactsManagerShould {
     }
 
     @Test(expected = InvalidContactNameException.class)
-    public void fail_if_name_is_empty() throws InvalidContactNameException {
+    public void fail_if_name_is_empty() throws InvalidContactNameException, InvalidEmailException {
         ContactsManager contactsManager = new ContactsManager();
         String emptyName = "";
 
@@ -25,7 +25,7 @@ public class ContactsManagerShould {
     }
 
     @Test(expected = InvalidEmailException.class)
-    public void fail_if_email_is_not_valid() throws InvalidContactNameException {
+    public void fail_if_email_is_not_valid() throws InvalidContactNameException, InvalidEmailException {
         ContactsManager contactsManager = new ContactsManager();
         String invalidEmail = "tototitifr";
 

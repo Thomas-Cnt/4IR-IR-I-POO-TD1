@@ -7,11 +7,13 @@ public class ContactsManager {
 
 	private List<Contact> contacts = new ArrayList<Contact>();
 
-	public void addContact(String name, String email, String phoneNumber) throws InvalidContactNameException {
+	public void addContact(String name, String email, String phoneNumber) throws InvalidContactNameException, InvalidEmailException {
 		if (name == null)
 			throw new InvalidContactNameException();
 		if (name.isEmpty())
 			throw new InvalidContactNameException();
+		if (email != null && !email.matches("[A-Za-z0-9._-]+@[a-z0-9._-]{2,}.[a-z]{2,4}"))
+			throw new InvalidEmailException();
 		this.contacts.add(new Contact(name, email, phoneNumber));
 	}
 
