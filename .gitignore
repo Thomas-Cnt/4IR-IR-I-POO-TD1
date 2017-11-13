@@ -5,3 +5,6 @@
 
 # specific Ignores
 target/
+
+# CSV ignores
+*.csv
