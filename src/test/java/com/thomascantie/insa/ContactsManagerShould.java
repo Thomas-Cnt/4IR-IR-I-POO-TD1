@@ -40,14 +40,6 @@ public class ContactsManagerShould {
 		contactsManager.updateContact(SOME_VALID_NAME, noName, SOME_VALID_EMAIL, SOME_VALID_PHONE_NUMBER);
 	}
 
-	@Test(expected = InvalidContactNameException.class)
-	public void fail_if_name_is_empty_when_update() throws InvalidContactNameException, InvalidEmailException {
-		ContactsManager contactsManager = new ContactsManager();
-		String emptyName = "";
-
-		contactsManager.updateContact(SOME_VALID_NAME, emptyName, SOME_VALID_EMAIL, SOME_VALID_PHONE_NUMBER);
-	}
-
 	@Test(expected = InvalidEmailException.class)
 	public void fail_if_email_is_not_valid_when_update() throws InvalidContactNameException, InvalidEmailException {
 		ContactsManager contactsManager = new ContactsManager();

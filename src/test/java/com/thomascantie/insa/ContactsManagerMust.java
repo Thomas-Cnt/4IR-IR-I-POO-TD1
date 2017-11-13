@@ -12,7 +12,7 @@ import org.junit.Test;
 
 public class ContactsManagerMust {
 
-    private static final String FIELD_SEPARATOR = ", ";
+	private static final String FIELD_SEPARATOR = ", ";
 
     private static final String NICOLE_FERRONI_NAME = "Nicole Ferroni";
     private static final String NICOLE_FERRONI_EMAIL = "contact@nicoleferroni.fr";
@@ -21,8 +21,9 @@ public class ContactsManagerMust {
     private static final String GUILLAUME_MEURICE_NAME = "Guillaume Meurice";
     private static final String GUILLAUME_MEURICE_EMAIL = "contact@guillaumemeurice.fr";
     private static final String GUILLAUME_MEURICE_PHONE_NUMBER = "0615389254";
+	public static final String EMPTY = "";
 
-    private ByteArrayOutputStream out;
+	private ByteArrayOutputStream out;
 
     @Before
     public void setUp() {
@@ -144,6 +145,45 @@ public class ContactsManagerMust {
 	}
 
 	@Test
+	public void update_a_contact_without_a_new_name() throws InvalidContactNameException, InvalidEmailException {
+		ContactsManager contactsManager = new ContactsManager();
+		contactsManager.addContact(NICOLE_FERRONI_NAME, NICOLE_FERRONI_EMAIL, NICOLE_FERRONI_PHONE_NUMBER);
+
+		contactsManager.updateContact(NICOLE_FERRONI_NAME, EMPTY, GUILLAUME_MEURICE_EMAIL, GUILLAUME_MEURICE_PHONE_NUMBER);
+
+		contactsManager.printAllContacts();
+
+		String expectedOutput = NICOLE_FERRONI_NAME + FIELD_SEPARATOR + GUILLAUME_MEURICE_EMAIL + FIELD_SEPARATOR + GUILLAUME_MEURICE_PHONE_NUMBER;
+		assertThat(standardOutput(), containsString(expectedOutput));
+	}
+
+	@Test
+	public void update_a_contact_without_a_new_email() throws InvalidContactNameException, InvalidEmailException {
+		ContactsManager contactsManager = new ContactsManager();
+		contactsManager.addContact(NICOLE_FERRONI_NAME, NICOLE_FERRONI_EMAIL, NICOLE_FERRONI_PHONE_NUMBER);
+
+		contactsManager.updateContact(NICOLE_FERRONI_NAME, GUILLAUME_MEURICE_NAME, EMPTY, GUILLAUME_MEURICE_PHONE_NUMBER);
+
+		contactsManager.printAllContacts();
+
+		String expectedOutput = GUILLAUME_MEURICE_NAME + FIELD_SEPARATOR + NICOLE_FERRONI_EMAIL + FIELD_SEPARATOR + GUILLAUME_MEURICE_PHONE_NUMBER;
+		assertThat(standardOutput(), containsString(expectedOutput));
+	}
+
+	@Test
+	public void update_a_contact_without_a_new_phone_number() throws InvalidContactNameException, InvalidEmailException {
+		ContactsManager contactsManager = new ContactsManager();
+		contactsManager.addContact(NICOLE_FERRONI_NAME, NICOLE_FERRONI_EMAIL, NICOLE_FERRONI_PHONE_NUMBER);
+
+		contactsManager.updateContact(NICOLE_FERRONI_NAME, GUILLAUME_MEURICE_NAME, GUILLAUME_MEURICE_EMAIL, EMPTY);
+
+		contactsManager.printAllContacts();
+
+		String expectedOutput = GUILLAUME_MEURICE_NAME + FIELD_SEPARATOR + GUILLAUME_MEURICE_EMAIL + FIELD_SEPARATOR + NICOLE_FERRONI_PHONE_NUMBER;
+		assertThat(standardOutput(), containsString(expectedOutput));
+	}
+
+	@Test
 	public void list_one_updated_contact() throws InvalidContactNameException, InvalidEmailException {
 		ContactsManager contactsManager = new ContactsManager();
 		contactsManager.addContact(NICOLE_FERRONI_NAME, NICOLE_FERRONI_EMAIL, NICOLE_FERRONI_PHONE_NUMBER);
@@ -153,6 +193,19 @@ public class ContactsManagerMust {
 		contactsManager.printAllContacts();
 
 		String expectedOutput = GUILLAUME_MEURICE_NAME + FIELD_SEPARATOR + GUILLAUME_MEURICE_EMAIL + FIELD_SEPARATOR + GUILLAUME_MEURICE_PHONE_NUMBER;
+		assertThat(standardOutput(), containsString(expectedOutput));
+	}
+
+	@Test
+	public void update_a_contact_with_no_change() throws InvalidContactNameException, InvalidEmailException {
+		ContactsManager contactsManager = new ContactsManager();
+		contactsManager.addContact(NICOLE_FERRONI_NAME, NICOLE_FERRONI_EMAIL, NICOLE_FERRONI_PHONE_NUMBER);
+
+		contactsManager.updateContact(NICOLE_FERRONI_NAME, EMPTY, EMPTY, EMPTY);
+
+		contactsManager.printAllContacts();
+
+		String expectedOutput = NICOLE_FERRONI_NAME + FIELD_SEPARATOR + NICOLE_FERRONI_EMAIL + FIELD_SEPARATOR + NICOLE_FERRONI_PHONE_NUMBER;
 		assertThat(standardOutput(), containsString(expectedOutput));
 	}
 
