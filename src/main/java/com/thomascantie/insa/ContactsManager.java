@@ -41,10 +41,11 @@ public class ContactsManager {
 		int pos = getIndexForContactWithName(name);
 		if (isIndexInTheList(pos)) {
 			Contact theContact = this.contacts.get(pos);
+			String[] info = this.contacts.get(pos).toString().split(", ");
 			this.contacts.set(pos, new Contact(
-					(updatedName.isEmpty() ? theContact.getName() : updatedName),
-					(updatedEmail.isEmpty() ? theContact.getEmail() : updatedEmail),
-					(updatedPhoneNumber.isEmpty() ? theContact.getPhoneNumber() : updatedPhoneNumber)));
+					(updatedName.isEmpty() ? info[0] : updatedName),
+					(updatedEmail.isEmpty() ? info[1] : updatedEmail),
+					(updatedPhoneNumber.isEmpty() ? info[2] : updatedPhoneNumber)));
 		}
 	}
 
