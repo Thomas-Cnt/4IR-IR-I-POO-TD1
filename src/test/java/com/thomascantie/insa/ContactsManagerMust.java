@@ -209,6 +209,33 @@ public class ContactsManagerMust {
 		assertThat(standardOutput(), containsString(expectedOutput));
 	}
 
+	@Test
+	public void delete_an_unexisting_contact_from_its_name() throws InvalidContactNameException, InvalidEmailException {
+		ContactsManager contactsManager = new ContactsManager();
+		contactsManager.addContact(NICOLE_FERRONI_NAME, NICOLE_FERRONI_EMAIL, NICOLE_FERRONI_PHONE_NUMBER);
+
+		contactsManager.deleteContact(GUILLAUME_MEURICE_NAME);
+
+		contactsManager.printAllContacts();
+
+		String expectedOutput = NICOLE_FERRONI_NAME + FIELD_SEPARATOR + NICOLE_FERRONI_EMAIL + FIELD_SEPARATOR + NICOLE_FERRONI_PHONE_NUMBER;
+		assertThat(standardOutput(), containsString(expectedOutput));
+	}
+
+	@Test
+	public void delete_a_contact_from_its_name() throws InvalidContactNameException, InvalidEmailException {
+		ContactsManager contactsManager = new ContactsManager();
+		contactsManager.addContact(NICOLE_FERRONI_NAME, NICOLE_FERRONI_EMAIL, NICOLE_FERRONI_PHONE_NUMBER);
+		contactsManager.addContact(GUILLAUME_MEURICE_NAME, GUILLAUME_MEURICE_EMAIL, GUILLAUME_MEURICE_PHONE_NUMBER);
+
+		contactsManager.deleteContact(NICOLE_FERRONI_NAME);
+
+		contactsManager.printAllContacts();
+
+		String expectedOutput = GUILLAUME_MEURICE_NAME + FIELD_SEPARATOR + GUILLAUME_MEURICE_EMAIL + FIELD_SEPARATOR + GUILLAUME_MEURICE_PHONE_NUMBER;
+		assertThat(standardOutput(), containsString(expectedOutput));
+	}
+
     private String standardOutput() {
         return out.toString();
     }
