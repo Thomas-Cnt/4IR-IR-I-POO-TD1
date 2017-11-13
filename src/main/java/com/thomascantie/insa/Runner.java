@@ -50,9 +50,26 @@ public class Runner {
 				processUpdate();
 			case "exit":
 				break;
+			case "delete":
+				processDelete();
+				break;
 			default:
 				System.out.printf(">>> Error ! Command not found. (%s)\n", command);
 		}
+	}
+
+	private static void processDelete() {
+		System.out.println("----------------------");
+		System.out.println("-- Delete a contact --");
+		System.out.println("----------------------\n");
+		System.out.print("name : ");
+		String name = sc.nextLine();
+		if (!manager.hasContactWithName(name)) {
+			System.out.printf("There is no contact with a name like \"%s\"\n", name);
+		} else {
+			manager.deleteContact(name);
+		}
+		System.out.println(">>> Finish !\n");
 	}
 
 	private static void processUpdate() {
@@ -153,9 +170,11 @@ public class Runner {
 		System.out.println("\t - list");
 		System.out.println("\t\t List all contact who are registered.");
 		System.out.println("\t - find");
-		System.out.println("\t\t Retrieve a contact from its name.");
+		System.out.println("\t\t Retrieve a contact from its name. Retrieve the first one found.");
 		System.out.println("\t - update");
-		System.out.println("\t\t Update a contact from its name. Allow to change both name, email and phone number.");
+		System.out.println("\t\t Update a contact from its name. Allow to change both name, email and phone number. Update the first one found.");
+		System.out.println("\t - delete");
+		System.out.println("\t\t Delete a contact from its name. Delete the first one found.");
 		System.out.println();
 	}
 
