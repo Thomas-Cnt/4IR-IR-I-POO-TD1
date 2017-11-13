@@ -23,10 +23,10 @@ public class ContactsManager {
 	
 	public void searchContactByName(String name) {
 		int i;
-		for (i = 0; isIndexInTheList(i) && isNotIndexForAContactWithName(name, i); i++) {
+		for (i = 0; isIndexInTheList(i); i++) {
+			if (isIndexForAContactWithName(name, i))
+				System.out.println(this.contacts.get(i));
 		}
-		if (isIndexInTheList(i))
-			System.out.println(this.contacts.get(i));
 	}
 
 	public void updateContact(String name, String updatedName, String updatedEmail, String updatedPhoneNumber) throws InvalidContactNameException, InvalidEmailException {
@@ -35,16 +35,18 @@ public class ContactsManager {
 		if (updatedEmail != null && !updatedEmail.isEmpty() && !updatedEmail.matches("[A-Za-z0-9._-]+@[a-z0-9._-]{2,}.[a-z]{2,4}"))
 			throw new InvalidEmailException(updatedEmail);
 
-		int i;
-		for (i = 0; isIndexInTheList(i) && isNotIndexForAContactWithName(name, i); i++) {
-		}
-		if (isIndexInTheList(i)) {
-			Contact theContact = this.contacts.get(i);
-			this.contacts.set(i, new Contact(
+		int pos = getIndexForContactWithName(name);
+		if (isIndexInTheList(pos)) {
+			Contact theContact = this.contacts.get(pos);
+			this.contacts.set(pos, new Contact(
 					(updatedName.isEmpty() ? theContact.getName() : updatedName),
 					(updatedEmail.isEmpty() ? theContact.getEmail() : updatedEmail),
 					(updatedPhoneNumber.isEmpty() ? theContact.getPhoneNumber() : updatedPhoneNumber)));
 		}
+	}
+
+	public boolean hasContactWithName(String name) {
+		return isIndexInTheList(getIndexForContactWithName(name));
 	}
 
 	public List<String[]> getAllContacts() {
@@ -54,9 +56,16 @@ public class ContactsManager {
 		}
 		return list;
 	}
+
+	private int getIndexForContactWithName(String name) {
+		int i;
+		for (i = 0; isIndexInTheList(i) && !isIndexForAContactWithName(name, i); i++) {
+		}
+		return i;
+	}
 	
-	private boolean isNotIndexForAContactWithName(String name, int i) {
-		return !this.contacts.get(i).hasNameLike(name);
+	private boolean isIndexForAContactWithName(String name, int i) {
+		return this.contacts.get(i).hasNameLike(name);
 	}
 	
 	private boolean isIndexInTheList(int i) {

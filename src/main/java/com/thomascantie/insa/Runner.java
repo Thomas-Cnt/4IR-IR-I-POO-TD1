@@ -62,14 +62,20 @@ public class Runner {
 		try {
 			System.out.print("name of the contact to update : ");
 			String name = sc.nextLine();
-			System.out.print("updated name (empty if no change) : ");
-			String newName = sc.nextLine();
-			System.out.print("updated email (empty if no change) : ");
-			String newEmail = sc.nextLine();
-			System.out.print("updated phone number (empty if no change) : ");
-			String newPhone = sc.nextLine();
-			manager.updateContact(name, newName, newEmail, newPhone);
-			System.out.println(">>> Contact updated !");
+
+			if (!manager.hasContactWithName(name)) {
+				System.out.printf("There is no contact with a name like \"%s\"\n", name);
+			} else {
+				System.out.print("updated name (empty if no change) : ");
+				String newName = sc.nextLine();
+				System.out.print("updated email (empty if no change) : ");
+				String newEmail = sc.nextLine();
+				System.out.print("updated phone number (empty if no change) : ");
+				String newPhone = sc.nextLine();
+				manager.updateContact(name, newName, newEmail, newPhone);
+				System.out.println(">>> Contact updated !");
+			}
+
 		} catch (InvalidContactNameException | InvalidEmailException e) {
 			System.out.println(">>> Error when trying to update this contact");
 			System.out.printf(">>> Fail ! (%s)\n", e.getMessage());
@@ -85,7 +91,11 @@ public class Runner {
 		System.out.println("--------------------\n");
 		System.out.print("name : ");
 		String name = sc.nextLine();
-		manager.searchContactByName(name);
+		if (!manager.hasContactWithName(name)) {
+			System.out.printf("There is no contact with a name like \"%s\"\n", name);
+		} else {
+			manager.searchContactByName(name);
+		}
 		System.out.println(">>> Finish !\n");
 	}
 
