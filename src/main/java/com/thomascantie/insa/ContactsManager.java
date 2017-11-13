@@ -1,6 +1,9 @@
 package com.thomascantie.insa;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -23,10 +26,10 @@ public class ContactsManager {
 	
 	public void searchContactByName(String name) {
 		int i;
-		for (i = 0; isIndexInTheList(i); i++) {
-			if (isIndexForAContactWithName(name, i))
-				System.out.println(this.contacts.get(i));
+		for (i = 0; isIndexInTheList(i) && !isIndexForAContactWithName(name, i); i++) {
 		}
+		if (isIndexInTheList(i))
+			System.out.println(this.contacts.get(i));
 	}
 
 	public void updateContact(String name, String updatedName, String updatedEmail, String updatedPhoneNumber) throws InvalidContactNameException, InvalidEmailException {
@@ -42,6 +45,14 @@ public class ContactsManager {
 					(updatedName.isEmpty() ? theContact.getName() : updatedName),
 					(updatedEmail.isEmpty() ? theContact.getEmail() : updatedEmail),
 					(updatedPhoneNumber.isEmpty() ? theContact.getPhoneNumber() : updatedPhoneNumber)));
+		}
+	}
+
+	public void deleteContact(String name) {
+		int i;
+		for (i = 0; isIndexInTheList(i); i++) {
+			if (isIndexForAContactWithName(name, i))
+				this.contacts.remove(i);
 		}
 	}
 
