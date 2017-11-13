@@ -8,7 +8,7 @@ import java.util.*;
 
 public class Runner {
 
-	private static final String FILENAME = "test__manager-data.csv";
+	private static final String FILENAME = "manager-data.csv";
 	private static Scanner sc;
 	private static ContactsManager manager;
 
