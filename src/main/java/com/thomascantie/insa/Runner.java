@@ -46,11 +46,37 @@ public class Runner {
 			case "find":
 				processFind();
 				break;
+			case "update":
+				processUpdate();
 			case "exit":
 				break;
 			default:
 				System.out.printf(">>> Error ! Command not found. (%s)\n", command);
 		}
+	}
+
+	private static void processUpdate() {
+		System.out.println("----------------------");
+		System.out.println("-- Update a contact --");
+		System.out.println("----------------------\n");
+		try {
+			System.out.print("name of the contact to update : ");
+			String name = sc.nextLine();
+			System.out.print("updated name (empty if no change) : ");
+			String newName = sc.nextLine();
+			System.out.print("updated email (empty if no change) : ");
+			String newEmail = sc.nextLine();
+			System.out.print("updated phone number (empty if no change) : ");
+			String newPhone = sc.nextLine();
+			manager.updateContact(name, newName, newEmail, newPhone);
+			System.out.println(">>> Contact updated !");
+		} catch (InvalidContactNameException | InvalidEmailException e) {
+			System.out.println(">>> Error when trying to update this contact");
+			System.out.printf(">>> Fail ! (%s)\n", e.getMessage());
+		} finally {
+			System.out.println(">>> Finish !\n");
+		}
+
 	}
 
 	private static void processFind() {
@@ -118,6 +144,8 @@ public class Runner {
 		System.out.println("\t\t List all contact who are registered.");
 		System.out.println("\t - find");
 		System.out.println("\t\t Retrieve a contact from its name.");
+		System.out.println("\t - update");
+		System.out.println("\t\t Update a contact from its name. Allow to change both name, email and phone number.");
 		System.out.println();
 	}
 
