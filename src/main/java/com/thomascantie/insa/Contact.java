@@ -17,7 +17,19 @@ class Contact {
 	public boolean hasNameLike(String str) {
 		return this.name.toLowerCase().contains(str.toLowerCase());
 	}
-	
+
+	public String getName() {
+		return this.name;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	public String getPhoneNumber() {
+		return this.phoneNumber;
+	}
+
 	@Override
 	public String toString() {
 		return ContactStringBuilder.aContactString()
