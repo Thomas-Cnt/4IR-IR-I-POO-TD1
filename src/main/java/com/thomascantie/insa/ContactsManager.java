@@ -28,7 +28,21 @@ public class ContactsManager {
 		if (isIndexInTheList(i))
 			System.out.println(this.contacts.get(i));
 	}
-	
+
+	public void updateContact(String name, String updatedName, String updatedEmail, String updatedPhoneNumber) throws InvalidContactNameException, InvalidEmailException {
+		if (updatedName == null || updatedName.isEmpty())
+			throw new InvalidContactNameException(updatedName);
+		if (updatedEmail != null && !updatedEmail.matches("[A-Za-z0-9._-]+@[a-z0-9._-]{2,}.[a-z]{2,4}"))
+			throw new InvalidEmailException(updatedEmail);
+
+		int i;
+		for (i = 0; isIndexInTheList(i) && isNotIndexForAContactWithName(name, i); i++) {
+		}
+		if (isIndexInTheList(i)) {
+			this.contacts.set(i, new Contact(updatedName, updatedEmail, updatedPhoneNumber));
+		}
+	}
+
 	public List<String[]> getAllContacts() {
 		List<String[]> list = new ArrayList<String[]>();
 		for (Contact aContact: this.contacts) {
