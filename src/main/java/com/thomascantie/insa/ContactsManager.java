@@ -30,16 +30,20 @@ public class ContactsManager {
 	}
 
 	public void updateContact(String name, String updatedName, String updatedEmail, String updatedPhoneNumber) throws InvalidContactNameException, InvalidEmailException {
-		if (updatedName == null || updatedName.isEmpty())
+		if (updatedName == null)
 			throw new InvalidContactNameException(updatedName);
-		if (updatedEmail != null && !updatedEmail.matches("[A-Za-z0-9._-]+@[a-z0-9._-]{2,}.[a-z]{2,4}"))
+		if (updatedEmail != null && !updatedEmail.isEmpty() && !updatedEmail.matches("[A-Za-z0-9._-]+@[a-z0-9._-]{2,}.[a-z]{2,4}"))
 			throw new InvalidEmailException(updatedEmail);
 
 		int i;
 		for (i = 0; isIndexInTheList(i) && isNotIndexForAContactWithName(name, i); i++) {
 		}
 		if (isIndexInTheList(i)) {
-			this.contacts.set(i, new Contact(updatedName, updatedEmail, updatedPhoneNumber));
+			Contact theContact = this.contacts.get(i);
+			this.contacts.set(i, new Contact(
+					(updatedName.isEmpty() ? theContact.getName() : updatedName),
+					(updatedEmail.isEmpty() ? theContact.getEmail() : updatedEmail),
+					(updatedPhoneNumber.isEmpty() ? theContact.getPhoneNumber() : updatedPhoneNumber)));
 		}
 	}
 
