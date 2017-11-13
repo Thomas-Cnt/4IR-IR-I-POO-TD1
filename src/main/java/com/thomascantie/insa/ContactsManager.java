@@ -1,6 +1,7 @@
 package com.thomascantie.insa;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class ContactsManager {
@@ -9,9 +10,9 @@ public class ContactsManager {
 	
 	public void addContact(String name, String email, String phoneNumber) throws InvalidContactNameException, InvalidEmailException {
 		if (name == null || name.isEmpty())
-			throw new InvalidContactNameException();
+			throw new InvalidContactNameException(name);
 		if (email != null && !email.matches("[A-Za-z0-9._-]+@[a-z0-9._-]{2,}.[a-z]{2,4}"))
-			throw new InvalidEmailException();
+			throw new InvalidEmailException(email);
 		this.contacts.add(new Contact(name, email, phoneNumber));
 	}
 	
@@ -26,6 +27,14 @@ public class ContactsManager {
 		}
 		if (isIndexInTheList(i))
 			System.out.println(this.contacts.get(i));
+	}
+	
+	public List<String[]> getAllContacts() {
+		List<String[]> list = new ArrayList<String[]>();
+		for (Contact aContact: this.contacts) {
+			list.add(aContact.toString().split(", "));
+		}
+		return list;
 	}
 	
 	private boolean isNotIndexForAContactWithName(String name, int i) {
