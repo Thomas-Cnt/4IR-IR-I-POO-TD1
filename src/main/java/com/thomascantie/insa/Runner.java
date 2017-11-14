@@ -54,7 +54,7 @@ public class Runner {
 				processDelete();
 				break;
 			default:
-				System.out.printf(">>> Error ! Command not found. (%s)\n", command);
+				System.out.printf(">>> Error ! Command not found. (\"%s\")\n", command);
 		}
 	}
 
@@ -62,43 +62,62 @@ public class Runner {
 		System.out.println("----------------------");
 		System.out.println("-- Delete a contact --");
 		System.out.println("----------------------\n");
-		System.out.print("name : ");
-		String name = sc.nextLine();
-		if (!manager.hasContactWithName(name)) {
-			System.out.printf("There is no contact with a name like \"%s\"\n", name);
+
+		if (manager.getAllContacts().isEmpty()) {
+			System.out.println("There is no contact who can be deleted.\n");
 		} else {
-			manager.deleteContact(name);
+
+			System.out.print("name : ");
+			String name = sc.nextLine();
+
+			if (manager.getAllContacts().isEmpty()) {
+				System.out.println("There is no contacts.\n");
+			} else if (!manager.hasContactWithName(name)) {
+				System.out.printf("There is no contact with a name like \"%s\"\n", name);
+			} else {
+				manager.deleteContact(name);
+			}
 		}
+
 		System.out.println(">>> Finish !\n");
+
 	}
 
 	private static void processUpdate() {
 		System.out.println("----------------------");
 		System.out.println("-- Update a contact --");
 		System.out.println("----------------------\n");
-		try {
-			System.out.print("name of the contact to update : ");
-			String name = sc.nextLine();
 
-			if (!manager.hasContactWithName(name)) {
-				System.out.printf("There is no contact with a name like \"%s\"\n", name);
-			} else {
-				System.out.print("updated name (empty if no change) : ");
-				String newName = sc.nextLine();
-				System.out.print("updated email (empty if no change) : ");
-				String newEmail = sc.nextLine();
-				System.out.print("updated phone number (empty if no change) : ");
-				String newPhone = sc.nextLine();
-				manager.updateContact(name, newName, newEmail, newPhone);
-				System.out.println(">>> Contact updated !");
+		if (manager.getAllContacts().isEmpty()) {
+			System.out.println("There is no contact who can be updated.\n");
+		} else {
+			try {
+				System.out.print("name of the contact to update : ");
+				String name = sc.nextLine();
+
+				if (manager.getAllContacts().isEmpty()) {
+					System.out.println("There is no contcat.\n");
+				} else if (!manager.hasContactWithName(name)) {
+					System.out.printf("There is no contact with a name like \"%s\"\n", name);
+				} else {
+					System.out.print("updated name (empty if no change) : ");
+					String newName = sc.nextLine();
+					System.out.print("updated email (empty if no change) : ");
+					String newEmail = sc.nextLine();
+					System.out.print("updated phone number (empty if no change) : ");
+					String newPhone = sc.nextLine();
+					manager.updateContact(name, newName, newEmail, newPhone);
+					System.out.println(">>> Contact updated !");
+				}
+
+			} catch (InvalidContactNameException | InvalidEmailException e) {
+				System.out.println(">>> Error when trying to update this contact");
+				System.out.printf(">>> Fail ! (%s)\n", e.getMessage());
 			}
 
-		} catch (InvalidContactNameException | InvalidEmailException e) {
-			System.out.println(">>> Error when trying to update this contact");
-			System.out.printf(">>> Fail ! (%s)\n", e.getMessage());
-		} finally {
-			System.out.println(">>> Finish !\n");
 		}
+
+		System.out.println(">>> Finish !\n");
 
 	}
 
