@@ -47,10 +47,15 @@ public class ContactsManager {
 	private void updateContactData(int pos, String updatedName, String updatedEmail, String updatedPhoneNumber) {
 		Contact theContact = this.contacts.get(pos);
 		String[] info = this.contacts.get(pos).toString().split(", ");
-		this.contacts.set(pos, new Contact(
-				(updatedName.isEmpty() ? info[0] : updatedName),
-				(updatedEmail.isEmpty() ? info[1] : updatedEmail),
-				(updatedPhoneNumber.isEmpty() ? info[2] : updatedPhoneNumber)));
+		String name = (updatedName.isEmpty() ? info[0] : updatedName);
+		String email = (updatedEmail.isEmpty() ? info[1] : updatedEmail);
+		String phone;
+		try {
+			phone = (updatedPhoneNumber.isEmpty() ? info[2] : updatedPhoneNumber);
+		} catch(ArrayIndexOutOfBoundsException e) { // array overflow <-> no phone number
+			phone = null;
+		}
+		this.contacts.set(pos, new Contact(name, email, phone));
 	}
 
 	public void deleteContact(String name) {

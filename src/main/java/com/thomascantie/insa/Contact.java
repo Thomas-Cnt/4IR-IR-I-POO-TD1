@@ -37,7 +37,7 @@ class ContactStringBuilder {
 	
 	public ContactStringBuilder with(String ... data) {
 		for (String str : data) {
-			if (str != null)
+			if (str != null && !str.isEmpty())
 				this.joiner.add(str);
 		}
 		return this;
