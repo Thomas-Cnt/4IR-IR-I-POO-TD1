@@ -6,19 +6,20 @@ import com.opencsv.CSVWriter;
 import java.io.*;
 import java.util.*;
 
+import com.thomascantie.insa.ManagerDAO;
+
 public class Runner {
 
-	private static final String FILENAME = "manager-data.csv";
 	private static Scanner sc;
 	private static ContactsManager manager;
 
-	public static void main(String[] args) {
+	public static void main(String[] argv) {
 
 		sc = new Scanner(System.in);
 		String command;
 
 		printTitle();
-		readData();
+		ManagerDAO.readData(manager);
 
 		System.out.println("Command : add | list | find | update | delete | help | exit");
 
@@ -29,7 +30,7 @@ public class Runner {
 			executeCommand(command);
 		} while (!command.toLowerCase().trim().equals("exit"));
 
-		writeData();
+		ManagerDAO.writeData(manager);
 
 		sc.close();
 
@@ -208,66 +209,6 @@ public class Runner {
 		System.out.println("\t - exit");
 		System.out.println("\t\t Stop the ContactsManager Runner.");
 		System.out.println();
-	}
-
-	private static void readData() {
-
-		if (!new File(FILENAME).exists()) {
-			try {
-				System.out.printf("\n>>> Creating file %s ...\n", FILENAME);
-
-				if(new File(FILENAME).createNewFile())
-					System.out.println(">>> Success !\n");
-				else
-					System.out.println(">>> Fail !\n");
-
-			} catch (IOException e) {
-				System.out.println(">>> Error when trying to create file : " + FILENAME);
-				System.out.printf(">>> Fail ! (%s)\n", e.getMessage());
-			}
-			manager = new ContactsManager();
-		} else {
-			try {
-				System.out.printf("\n>>> Reading data from %s ...\n", FILENAME);
-
-				manager = new ContactsManager();
-				for (String[] aContact : new CSVReader(new FileReader(FILENAME)).readAll()) {
-					try {
-						manager.addContact(aContact[0], aContact[1], aContact[2]);
-					} catch(ArrayIndexOutOfBoundsException e) { // array overflow <-> no phone number
-						manager.addContact(aContact[0], aContact[1], null);
-					}
-				}
-
-				System.out.println(">>> Success !\n");
-
-			} catch (IOException e) {
-				System.out.println(">>> Error when trying to load file : " + FILENAME);
-				System.out.printf(">>> Fail ! (%s)\n", e.getMessage());
-			} catch (InvalidContactNameException | InvalidEmailException e) {
-				System.out.println(">>> Error when trying to read a contact");
-				System.out.printf(">>> Fail ! (%s)\n", e.getMessage());
-			}
-		}
-
-	}
-
-	private static void writeData() {
-
-		System.out.printf("\n>>> Writing data to %s ...\n", FILENAME);
-
-		try {
-			CSVWriter writer = new CSVWriter(new FileWriter(FILENAME));
-			writer.writeAll(manager.getAllContacts());
-			writer.close();
-
-			System.out.println(">>> Success !\n");
-
-		} catch (IOException e) {
-			System.out.println("Error when trying to load file : " + FILENAME);
-			System.out.printf(">>> Fail ! (%s)\n", e.getMessage());
-		}
-
 	}
 
 }
