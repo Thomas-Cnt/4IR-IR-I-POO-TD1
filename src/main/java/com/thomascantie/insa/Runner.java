@@ -20,7 +20,7 @@ public class Runner {
 		printTitle();
 		readData();
 
-		System.out.println("Command : add | list | find | update | delete | help");
+		System.out.println("Command : add | list | find | update | delete | help | exit");
 
 		do {
 			System.out.println();
@@ -50,17 +50,17 @@ public class Runner {
 				break;
 			case "update":
 				processUpdate();
-			case "exit":
-				break;
 			case "delete":
 				processDelete();
 				break;
 			case "help":
 				printUsage();
 				break;
+			case "exit":
+				break;
 			default:
 				System.out.printf(">>> Error ! Command not found. (\"%s\")\n", command);
-				System.out.println("Command : add | list | find | update | delete | help");
+				System.out.println("Command : add | list | find | update | delete | help | exit");
 		}
 	}
 
@@ -202,6 +202,8 @@ public class Runner {
 		System.out.println("\t\t Delete a contact from its name. Delete the first one found.");
 		System.out.println("\t - help");
 		System.out.println("\t\t Print available commands.");
+		System.out.println("\t - exit");
+		System.out.println("\t\t Stop the ContactsManager Runner.");
 		System.out.println();
 	}
 
