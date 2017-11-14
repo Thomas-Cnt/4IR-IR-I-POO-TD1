@@ -6,7 +6,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.Arrays;
+import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -234,6 +237,21 @@ public class ContactsManagerMust {
 
 		String expectedOutput = GUILLAUME_MEURICE_NAME + FIELD_SEPARATOR + GUILLAUME_MEURICE_EMAIL + FIELD_SEPARATOR + GUILLAUME_MEURICE_PHONE_NUMBER;
 		assertThat(standardOutput(), containsString(expectedOutput));
+	}
+
+	@Test
+	public void get_all_contacts_added() throws InvalidContactNameException, InvalidEmailException {
+		ContactsManager contactsManager = new ContactsManager();
+		contactsManager.addContact(NICOLE_FERRONI_NAME, NICOLE_FERRONI_EMAIL, NICOLE_FERRONI_PHONE_NUMBER);
+		contactsManager.addContact(GUILLAUME_MEURICE_NAME, GUILLAUME_MEURICE_EMAIL, GUILLAUME_MEURICE_PHONE_NUMBER);
+
+		for(String[] data : contactsManager.getAllContacts())
+			System.out.println(Arrays.toString(data));
+
+		String firstContactInfo = NICOLE_FERRONI_NAME + FIELD_SEPARATOR + NICOLE_FERRONI_EMAIL + FIELD_SEPARATOR + NICOLE_FERRONI_PHONE_NUMBER;
+		String secondContactInfo = GUILLAUME_MEURICE_NAME + FIELD_SEPARATOR + GUILLAUME_MEURICE_EMAIL + FIELD_SEPARATOR + GUILLAUME_MEURICE_PHONE_NUMBER;
+		assertThat(standardOutput(), containsString(firstContactInfo));
+		assertThat(standardOutput(), containsString(secondContactInfo));
 	}
 
     private String standardOutput() {
