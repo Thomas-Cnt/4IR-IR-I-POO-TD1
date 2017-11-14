@@ -20,8 +20,10 @@ public class Runner {
 		printTitle();
 		readData();
 
+		System.out.println("Command : add | list | find | update | delete | help");
+
 		do {
-			printMenu();
+			System.out.println();
 			System.out.print("--> ");
 			command = sc.nextLine().toLowerCase().trim();
 			executeCommand(command);
@@ -53,8 +55,12 @@ public class Runner {
 			case "delete":
 				processDelete();
 				break;
+			case "help":
+				printUsage();
+				break;
 			default:
 				System.out.printf(">>> Error ! Command not found. (\"%s\")\n", command);
+				System.out.println("Command : add | list | find | update | delete | help");
 		}
 	}
 
@@ -181,7 +187,7 @@ public class Runner {
 		System.out.println();
 	}
 
-	private static void printMenu() {
+	private static void printUsage() {
 		System.out.println();
 		System.out.println("Commands available :");
 		System.out.println("\t - add");
@@ -194,6 +200,8 @@ public class Runner {
 		System.out.println("\t\t Update a contact from its name. Allow to change both name, email and phone number. Update the first one found.");
 		System.out.println("\t - delete");
 		System.out.println("\t\t Delete a contact from its name. Delete the first one found.");
+		System.out.println("\t - help");
+		System.out.println("\t\t Print available commands.");
 		System.out.println();
 	}
 
