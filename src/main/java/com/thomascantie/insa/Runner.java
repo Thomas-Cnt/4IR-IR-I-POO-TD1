@@ -82,6 +82,7 @@ public class Runner {
 				System.out.printf("There is no contact with a name like \"%s\"\n", name);
 			} else {
 				manager.deleteContact(name);
+				System.out.println(">>> Contact deleted !");
 			}
 		}
 
@@ -114,6 +115,7 @@ public class Runner {
 					String newPhone = sc.nextLine();
 					manager.updateContact(name, newName, newEmail, newPhone);
 					System.out.println(">>> Contact updated !");
+					manager.searchContactByName(newName);
 				}
 
 			} catch (InvalidContactNameException | InvalidEmailException e) {
@@ -162,6 +164,7 @@ public class Runner {
 			String phone = sc.nextLine();
 			manager.addContact(name, email, phone);
 			System.out.println(">>> Contact added !");
+			manager.searchContactByName(name);
 		} catch (InvalidContactNameException | InvalidEmailException e) {
 			System.out.println(">>> Error when trying to add this contact");
 			System.out.printf(">>> Fail ! (%s)\n", e.getMessage());
