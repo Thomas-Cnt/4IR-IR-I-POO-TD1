@@ -7,6 +7,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.Assert;
@@ -252,6 +253,13 @@ public class ContactsManagerMust {
 		String secondContactInfo = GUILLAUME_MEURICE_NAME + FIELD_SEPARATOR + GUILLAUME_MEURICE_EMAIL + FIELD_SEPARATOR + GUILLAUME_MEURICE_PHONE_NUMBER;
 		assertThat(standardOutput(), containsString(firstContactInfo));
 		assertThat(standardOutput(), containsString(secondContactInfo));
+	}
+
+	@Test
+	public void get_empty_list_for_no_contact_added() throws InvalidContactNameException, InvalidEmailException {
+		ContactsManager contactsManager = new ContactsManager();
+
+		assertThat(contactsManager.getAllContacts(), is(Collections.EMPTY_LIST));
 	}
 
     private String standardOutput() {
