@@ -66,6 +66,10 @@ public class ContactsManager {
 		}
 	}
 
+	public boolean hasContacts() {
+		return !this.getAllContacts().isEmpty();
+	}
+
 	public boolean hasContactWithName(String name) {
 		return isIndexInTheList(getIndexForContactWithName(name));
 	}
