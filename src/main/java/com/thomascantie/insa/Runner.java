@@ -10,16 +10,21 @@ import com.thomascantie.insa.ManagerDAO;
 
 public class Runner {
 
-	private static Scanner sc;
-	private static ContactsManager manager;
+	private Scanner sc;
+	private ContactsManager manager;
+	private ManagerDAO managerDAO;
 
-	public static void main(String[] argv) {
+	public Runner(ManagerDAO managerDAO) {
+		this.managerDAO = managerDAO;
+	}
+
+	public void run() {
 
 		sc = new Scanner(System.in);
 		String command;
 
 		printTitle();
-		ManagerDAO.readData(manager);
+		manager = managerDAO.readData();
 
 		System.out.println("Command : add | list | find | update | delete | help | exit");
 
@@ -30,7 +35,7 @@ public class Runner {
 			executeCommand(command);
 		} while (!command.toLowerCase().trim().equals("exit"));
 
-		ManagerDAO.writeData(manager);
+		managerDAO.writeData(manager);
 
 		sc.close();
 
@@ -38,7 +43,7 @@ public class Runner {
 
 	}
 
-	private static void executeCommand(String command) {
+	private void executeCommand(String command) {
 		switch (command) {
 			case "add":
 				processAdd();
@@ -51,6 +56,7 @@ public class Runner {
 				break;
 			case "update":
 				processUpdate();
+				break;
 			case "delete":
 				processDelete();
 				break;
@@ -65,21 +71,19 @@ public class Runner {
 		}
 	}
 
-	private static void processDelete() {
+	private void processDelete() {
 		System.out.println("----------------------");
 		System.out.println("-- Delete a contact --");
 		System.out.println("----------------------\n");
 
-		if (manager.getAllContacts().isEmpty()) {
+		if (!manager.hasContacts()) {
 			System.out.println("There is no contact who can be deleted.\n");
 		} else {
 
 			System.out.print("name : ");
 			String name = sc.nextLine();
 
-			if (manager.getAllContacts().isEmpty()) {
-				System.out.println("There is no contacts.\n");
-			} else if (!manager.hasContactWithName(name)) {
+			if (!manager.hasContactWithName(name)) {
 				System.out.printf("There is no contact with a name like \"%s\"\n", name);
 			} else {
 				manager.deleteContact(name);
@@ -91,21 +95,19 @@ public class Runner {
 
 	}
 
-	private static void processUpdate() {
+	private void processUpdate() {
 		System.out.println("----------------------");
 		System.out.println("-- Update a contact --");
 		System.out.println("----------------------\n");
 
-		if (manager.getAllContacts().isEmpty()) {
+		if (!manager.hasContacts()) {
 			System.out.println("There is no contact who can be updated.\n");
 		} else {
 			try {
 				System.out.print("name of the contact to update : ");
 				String name = sc.nextLine();
 
-				if (manager.getAllContacts().isEmpty()) {
-					System.out.println("There is no contcat.\n");
-				} else if (!manager.hasContactWithName(name)) {
+				if (!manager.hasContactWithName(name)) {
 					System.out.printf("There is no contact with a name like \"%s\"\n", name);
 				} else {
 					System.out.print("updated name (empty if no change) : ");
@@ -130,7 +132,7 @@ public class Runner {
 
 	}
 
-	private static void processFind() {
+	private void processFind() {
 		System.out.println("--------------------");
 		System.out.println("-- Find a contact --");
 		System.out.println("--------------------\n");
@@ -144,7 +146,7 @@ public class Runner {
 		System.out.println(">>> Finish !\n");
 	}
 
-	private static void processList() {
+	private void processList() {
 		System.out.println("-----------------------");
 		System.out.println("-- List all contacts --");
 		System.out.println("-----------------------\n");
@@ -152,7 +154,7 @@ public class Runner {
 		System.out.println(">>> Finish !\n");
 	}
 
-	private static void processAdd() {
+	private void processAdd() {
 		System.out.println("-------------------");
 		System.out.println("-- Add a contact --");
 		System.out.println("-------------------\n");
@@ -175,7 +177,7 @@ public class Runner {
 
 	}
 
-	private static void printTitle() {
+	private void printTitle() {
 		System.out.println();
 		System.out.println("****************************");
 		System.out.println("***** Contacts manager *****");
@@ -183,7 +185,7 @@ public class Runner {
 		System.out.println();
 	}
 
-	private static void printExit() {
+	private void printExit() {
 		System.out.println();
 		System.out.println("***********");
 		System.out.println("*** BYE ***");
@@ -191,7 +193,7 @@ public class Runner {
 		System.out.println();
 	}
 
-	private static void printUsage() {
+	private void printUsage() {
 		System.out.println();
 		System.out.println("Commands available :");
 		System.out.println("\t - add");
