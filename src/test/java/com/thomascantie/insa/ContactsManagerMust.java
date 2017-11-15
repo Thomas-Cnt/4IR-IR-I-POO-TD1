@@ -262,6 +262,22 @@ public class ContactsManagerMust {
 		assertThat(contactsManager.getAllContacts(), is(Collections.EMPTY_LIST));
 	}
 
+	@Test
+	public void evaluate_that_there_is_at_least_one_contact() throws InvalidContactNameException, InvalidEmailException {
+		ContactsManager contactsManager = new ContactsManager();
+		contactsManager.addContact(NICOLE_FERRONI_NAME, NICOLE_FERRONI_EMAIL, NICOLE_FERRONI_PHONE_NUMBER
+		);
+
+		assertThat(contactsManager.hasContacts(), is(true));
+	}
+
+	@Test
+	public void evaluate_that_there_is_no_contact_added() throws InvalidContactNameException, InvalidEmailException {
+		ContactsManager contactsManager = new ContactsManager();
+
+		assertThat(contactsManager.hasContacts(), is(false));
+	}
+
     private String standardOutput() {
         return out.toString();
     }
