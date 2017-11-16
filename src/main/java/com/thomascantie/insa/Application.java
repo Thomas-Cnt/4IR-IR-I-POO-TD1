@@ -1,7 +1,5 @@
 package com.thomascantie.insa;
 
-import com.thomascantie.insa.ManagerDAO;
-
 public class Application {
 
 	private static final String FILENAME = "manager-data.csv";
