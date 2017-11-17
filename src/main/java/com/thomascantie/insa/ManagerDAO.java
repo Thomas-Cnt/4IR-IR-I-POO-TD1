@@ -13,10 +13,17 @@ import java.io.IOException;
 
 public class ManagerDAO {
 
+	private static ManagerDAO instance;
 	private String outputFileName;
 
-	public ManagerDAO(String fileName) {
+	private ManagerDAO(String fileName) {
 		this.outputFileName = fileName;
+	}
+
+	public static synchronized ManagerDAO getInstance(String fileName) {
+		if (instance == null)
+			instance = new ManagerDAO(fileName);
+		return instance;
 	}
 
 	public ContactsManager readData() {
