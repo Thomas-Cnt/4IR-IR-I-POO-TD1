@@ -39,7 +39,7 @@ public class ManagerDAOMust {
 
 	@After
 	public void tearDown() throws Exception {
-		//new File(FILE_TMP).delete();
+		new File(FILE_TMP).delete();
 	}
 
 	@Test
