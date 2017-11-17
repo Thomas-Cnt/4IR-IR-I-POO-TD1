@@ -49,9 +49,9 @@ public class ManagerDAO {
 				manager = new ContactsManager();
 				for (String[] aContact : new CSVReader(new FileReader(outputFileName)).readAll()) {
 					try {
-						manager.addContact(aContact[0], aContact[1], aContact[2]);
+						manager.addContact(aContact[0].trim(), aContact[1].trim(), aContact[2].trim());
 					} catch(ArrayIndexOutOfBoundsException e) { // array overflow <-> no phone number
-						manager.addContact(aContact[0], aContact[1], null);
+						manager.addContact(aContact[0].trim(), aContact[1].trim(), null);
 					}
 				}
 
@@ -75,7 +75,7 @@ public class ManagerDAO {
 
 		try {
 			CSVWriter writer = new CSVWriter(new FileWriter(outputFileName));
-			writer.writeAll(manager.getAllContacts());
+			writer.writeAll(manager.getAllContacts(), false);
 			writer.close();
 
 			System.out.println(">>> Success !\n");
