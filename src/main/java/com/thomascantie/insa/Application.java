@@ -6,7 +6,7 @@ public class Application {
 
 	public static void main(String[] args) {
 
-		new Runner(new ManagerDAO(FILENAME)).run();
+		new Runner(ManagerDAO.getInstance(FILENAME)).run();
 
 	}
 

@@ -12,10 +12,10 @@ public class Runner {
 
 	private Scanner sc;
 	private ContactsManager manager;
-	private ManagerDAO managerDAO;
+	private ManagerDAO dao;
 
-	public Runner(ManagerDAO managerDAO) {
-		this.managerDAO = managerDAO;
+	public Runner(ManagerDAO managerDao) {
+		this.dao = managerDao;
 	}
 
 	public void run() {
@@ -24,7 +24,7 @@ public class Runner {
 		String command;
 
 		printTitle();
-		manager = managerDAO.readData();
+		manager = dao.readData();
 
 		System.out.println("Command : add | list | find | update | delete | help | exit");
 
@@ -35,7 +35,7 @@ public class Runner {
 			executeCommand(command);
 		} while (!command.toLowerCase().trim().equals("exit"));
 
-		managerDAO.writeData(manager);
+		dao.writeData(manager);
 
 		sc.close();
 
