@@ -56,7 +56,7 @@ public class ManagerDAOMust {
 
 		new FileOutputStream(new File(FILE_TMP)).write((contact1 + "\n" + contact2).getBytes());
 
-		ContactsManager manager = ManagerDAO.getInstance(FILE_TMP).readData();
+		ContactsManager manager = new ManagerDAO(FILE_TMP).readData();
 
 		manager.printAllContacts();
 
@@ -74,7 +74,7 @@ public class ManagerDAOMust {
 		contactsManager.addContact(NICOLE_FERRONI_NAME, NICOLE_FERRONI_EMAIL, NICOLE_FERRONI_PHONE_NUMBER);
 		contactsManager.addContact(GUILLAUME_MEURICE_NAME, GUILLAUME_MEURICE_EMAIL, GUILLAUME_MEURICE_PHONE_NUMBER);
 
-		ManagerDAO.getInstance(FILE_TMP).writeData(contactsManager);
+		new ManagerDAO(FILE_TMP).writeData(contactsManager);
 
 		StringBuffer buffer = new StringBuffer();
 
