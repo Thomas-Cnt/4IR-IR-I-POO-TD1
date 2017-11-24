@@ -5,14 +5,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.*;
-import java.util.Arrays;
-import java.util.List;
 import java.util.StringJoiner;
 
-import static com.sun.org.apache.xerces.internal.util.PropertyState.is;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 
 public class ManagerDAOMust {
 
@@ -39,7 +37,8 @@ public class ManagerDAOMust {
 
 	@After
 	public void tearDown() throws Exception {
-		new File(FILE_TMP).delete();
+		boolean boo = new File(FILE_TMP).delete();
+		assertThat("Temporary file not closed !", boo, is(true));
 	}
 
 	@Test
@@ -76,7 +75,7 @@ public class ManagerDAOMust {
 
 		new ManagerDAO(FILE_TMP).writeData(contactsManager);
 
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 
 		BufferedReader reader = new BufferedReader(new FileReader(FILE_TMP));
 		String entry;

@@ -8,9 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,7 +23,7 @@ public class ContactsManagerMust {
     private static final String GUILLAUME_MEURICE_NAME = "Guillaume Meurice";
     private static final String GUILLAUME_MEURICE_EMAIL = "contact@guillaumemeurice.fr";
     private static final String GUILLAUME_MEURICE_PHONE_NUMBER = "0615389254";
-	public static final String EMPTY = "";
+	private static final String EMPTY = "";
 
 	private ByteArrayOutputStream out;
 

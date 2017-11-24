@@ -1,7 +1,6 @@
 package com.thomascantie.insa;
 
 import org.junit.Test;
-import com.thomascantie.insa.ManagerDAO;
 import org.mockito.InOrder;
 
 
